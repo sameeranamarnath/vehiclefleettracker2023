@@ -24,10 +24,6 @@ const ListStyled = styled(List)`
     padding-bottom: 0px;
 `;
 
-const ImageStyled = styled.img`
-    width: 40px;
-`;
-
 const TextContainer = styled.div`
     padding: 10px 0;
     display: flex;
@@ -59,7 +55,7 @@ const AddressDisplay = styled.div`
                 <ListItemButton>
                     <ListItemAvatar>
                         <Avatar sx={{ width: 40, height: 40 }}>
-                            <ImageStyled src={imgUrl} />
+                            <img style={{width:"40px"}} src={imgUrl} />
                         </Avatar>
                     </ListItemAvatar>
 
@@ -84,11 +80,11 @@ interface DashboardProps {
     vendors: Vendors;
     setVendors: Dispatch<SetStateAction<Vendors>>;
 }
+interface CustomStyleProps {
+    width?: string;
+    overflow?: string;
+};
 
-const DashboardStyledDiv = styled.div`
-    width: 400px;
-    overflow: auto;
-`;
 
 export default function Sidebar({vendors, setVendors}: DashboardProps) {
     const next = async () => {
@@ -118,23 +114,35 @@ export default function Sidebar({vendors, setVendors}: DashboardProps) {
         }
     }
 
+    
+    //workaround for tsc,styledcomponents compatibility
+const DashboardDiv = ({...rest}) => (
+    <div {...rest}><InfiniteScroll
+    dataLength={vendors.Items.length}
+    next={next}
+    hasMore={!!vendors.lastEvaluatedKey}
+    scrollableTarget="scrollableDiv"
+    loader={<Loader />}
+>
+    {
+        vendors.Items.map(
+            vendor => (
+                <Tile key={vendor.twitterId} imgUrl={vendor.image} name={vendor.name} geo={vendor.tweets[vendor.tweets.length - 1]?.geo}/>
+            )
+        )
+    }
+</InfiniteScroll>
+</div>
+  );
+  
+  
+const DashboardStyledDiv = styled(DashboardDiv)`
+    width: 400px;
+    overflow: auto;
+`;
+
     return (
         <DashboardStyledDiv id="scrollableDiv">
-            <InfiniteScroll
-                dataLength={vendors.Items.length}
-                next={next}
-                hasMore={!!vendors.lastEvaluatedKey}
-                scrollableTarget="scrollableDiv"
-                loader={<Loader />}
-            >
-                {
-                    vendors.Items.map(
-                        vendor => (
-                            <Tile key={vendor.twitterId} imgUrl={vendor.image} name={vendor.name} geo={vendor.tweets[vendor.tweets.length - 1]?.geo}/>
-                        )
-                    )
-                }
-            </InfiniteScroll>
-        </DashboardStyledDiv>
+                   </DashboardStyledDiv>
     )
 }

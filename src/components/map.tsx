@@ -50,7 +50,7 @@ const MapComponent: React.FC<MapProps> = ({
     ...options
 }) => {
     const reassignedMarkersMap = useRef(false);
-    const ref = useRef<MapRef>();
+    const ref = useRef<MapRef>(null);
     const [map, setMap] = useState<mapboxgl.Map>();
 
     useEffect(() => {
