@@ -6,6 +6,7 @@ import { websocket } from '@/api/websocket';
 import { vendorsSort } from '@/common/utils';
 import MapWrapper from './map';
 import mapboxgl from 'mapbox-gl';
+import Sidebar from './sidebar';
 
 interface MainProps {
     initVendors: Vendors;
@@ -62,6 +63,11 @@ export default function Main({ initVendors }: MainProps) {
 
     return (
         <MainStyled>
+  
+  <Sidebar 
+                vendors={vendors}
+                setVendors={setVendors}
+            />
             
             <MapWrapper
                 markers={markers}
