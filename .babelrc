@@ -1,5 +1,0 @@
-//styled components inclusion with server side rendering enabled
-{
-    "presets": ["next/babel"],
-    "plugins": [["styled-components", { "ssr": true, "displayName": true }]]
-}
