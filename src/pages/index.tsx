@@ -1,7 +1,9 @@
 
 import { Vendors,Vendor} from "@/api/types";
 import { getVendors } from "@/api/vendors";
+import { vendorsSort } from "@/common/utils";
 import Main from "@/components/main";
+import MapComponent from "@/components/map";
 import Head from "next/head";
 
 interface HomeProps {
@@ -18,16 +20,13 @@ export default function Home({ initVendors }: HomeProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Main initVendors={initVendors} />
     </>  )
 }
 
 export async function getStaticProps() {
   let vendors: Vendors | Error;
-  let vendorsSort = (vendors: Vendor[]) => vendors.sort((a,b) => {
-    const a_date: number = a.tweets.length && new Date(a.tweets[0].date).getTime();
-    const b_date: number = b.tweets.length && new Date(b.tweets[0].date).getTime();
-    return b_date - a_date;
-})
+  
 
   try {
     vendors = await getVendors<Vendors>(14);
