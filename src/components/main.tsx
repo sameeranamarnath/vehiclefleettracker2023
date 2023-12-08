@@ -31,6 +31,7 @@ export default function Main({ initVendors }: MainProps) {
             }
             ws.addEventListener('open', connect);
 
+            //new msg added
             const message = (ev: MessageEvent) => {
                 const data: Tweet = JSON.parse(ev.data);
                 console.log(data);
