@@ -133,6 +133,6 @@ jobs:
         env:
           TF_VAR_IMAGE_TAG: ${{ github.sha }}
           TF_VAR_AWS_REGION: ${{ secrets.AWS_REGION }}
-          TF_VAR_REPO: https://github.com/sameeranamarnath/vehiclefleettracker2023
+          TF_VAR_REPO: https://github.com/sameeranamarnath/vehiclefleettracker2023-app
           TF_VAR_PAT: ${{ secrets.PAT }}
           TF_VAR_GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
